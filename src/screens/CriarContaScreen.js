@@ -9,13 +9,14 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { FiRecycle } from 'react-icons/fi';
+import { FiRecycle, FiHome } from 'react-icons/fi';
 
 const CORES = {
   primaria: '#004D40',
   amarelo: '#FFD54F',
   amareloClaro: '#FFF9C4',
   branco: '#FFFFFF',
+  preto: '#000000',
 };
 
 export default function CriarContaScreen({ navigation }) {
@@ -25,7 +26,6 @@ export default function CriarContaScreen({ navigation }) {
   const [idade, setIdade] = useState('');
 
   const handleCriarConta = () => {
-    // Após criar conta, navegar para as tabs principais
     navigation.navigate('MainTabs');
   };
 
@@ -41,7 +41,14 @@ export default function CriarContaScreen({ navigation }) {
         {/* Ícone do app */}
         <View style={styles.iconContainer}>
           <View style={styles.iconCircle}>
-            <FiRecycle size={48} color={CORES.primaria} />
+            <View style={styles.housesRow}>
+              <FiHome size={28} color={CORES.primaria} />
+              <FiHome size={28} color={CORES.primaria} />
+              <FiHome size={28} color={CORES.primaria} />
+            </View>
+            <View style={styles.recycleRow}>
+              <FiRecycle size={32} color={CORES.primaria} />
+            </View>
           </View>
         </View>
 
@@ -114,14 +121,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconCircle: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     backgroundColor: CORES.amarelo,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 3,
     borderColor: CORES.primaria,
+  },
+  housesRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 4,
+    marginBottom: 2,
+  },
+  recycleRow: {
+    alignItems: 'center',
   },
   formContainer: {
     width: '85%',

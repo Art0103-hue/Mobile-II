@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FiUser, FiDroplet, FiAlertTriangle, FiTrash2, FiRecycle } from 'react-icons/fi';
 
 const CORES = {
   primaria: '#004D40',
@@ -18,25 +18,25 @@ const CORES = {
 const dicas = [
   {
     id: 1,
-    icone: 'water-outline',
+    IconComponent: FiDroplet,
     texto:
       'Recicláveis devem estar limpos e secos para evitar contaminação.',
   },
   {
     id: 2,
-    icone: 'warning-outline',
+    IconComponent: FiAlertTriangle,
     texto:
       'Vidro quebrado deve ser embalado e identificado para proteger os coletores.',
   },
   {
     id: 3,
-    icone: 'trash-outline',
+    IconComponent: FiTrash2,
     texto:
       'Separe o lixo orgânico do reciclável. Restos de comida não vão na coleta seletiva.',
   },
   {
     id: 4,
-    icone: 'recycle-outline',
+    IconComponent: FiRecycle,
     texto:
       'Plásticos com símbolo de reciclagem devem ser separados por tipo para melhor reaproveitamento.',
   },
@@ -52,7 +52,7 @@ export default function DicasColetaScreen({ navigation }) {
           style={styles.userIcon}
           onPress={() => navigation.navigate('Perfil')}
         >
-          <Ionicons name="person" size={22} color={CORES.branco} />
+          <FiUser size={20} color={CORES.branco} />
         </TouchableOpacity>
       </View>
 
@@ -61,14 +61,17 @@ export default function DicasColetaScreen({ navigation }) {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {dicas.map((dica) => (
-          <View key={dica.id} style={styles.dicaCard}>
-            <View style={styles.dicaIconContainer}>
-              <Ionicons name={dica.icone} size={28} color={CORES.primaria} />
+        {dicas.map((dica) => {
+          const IconComp = dica.IconComponent;
+          return (
+            <View key={dica.id} style={styles.dicaCard}>
+              <View style={styles.dicaIconContainer}>
+                <IconComp size={24} color={CORES.primaria} />
+              </View>
+              <Text style={styles.dicaTexto}>{dica.texto}</Text>
             </View>
-            <Text style={styles.dicaTexto}>{dica.texto}</Text>
-          </View>
-        ))}
+          );
+        })}
       </ScrollView>
     </View>
   );

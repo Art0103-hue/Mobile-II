@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { FiClock, FiHome, FiTrash2, FiUser } from 'react-icons/fi';
 
 import LoginScreen from './src/screens/LoginScreen';
 import CriarContaScreen from './src/screens/CriarContaScreen';
@@ -28,19 +28,17 @@ function TabNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+          const iconSize = 22;
 
           if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home-outline';
+            return <FiHome size={iconSize} color={color} />;
           } else if (route.name === 'Locais') {
-            iconName = focused ? 'location' : 'location-outline';
+            return <FiClock size={iconSize} color={color} />;
           } else if (route.name === 'Dicas') {
-            iconName = focused ? 'bulb' : 'bulb-outline';
+            return <FiTrash2 size={iconSize} color={color} />;
           } else if (route.name === 'Perfil') {
-            iconName = focused ? 'person' : 'person-outline';
+            return <FiUser size={iconSize} color={color} />;
           }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: CORES.amarelo,
         tabBarInactiveTintColor: CORES.branco,

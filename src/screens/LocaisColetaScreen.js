@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FiUser, FiMapPin, FiChevronRight } from 'react-icons/fi';
 
 const CORES = {
   primaria: '#004D40',
@@ -19,7 +19,7 @@ const locaisColeta = [
   {
     id: 1,
     nome: 'Supermercados Nova Era',
-    endereco: 'Torquato Tapajós e Novo Ateísmo',
+    endereco: 'Torquato Tapajós e Novo Aleixo',
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const locaisColeta = [
   {
     id: 3,
     nome: 'Pátio Gourmet',
-    endereco: 'Adrianópolis e Ateísmo',
+    endereco: 'Adrianópolis e Avenida',
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ export default function LocaisColetaScreen({ navigation }) {
           style={styles.userIcon}
           onPress={() => navigation.navigate('Perfil')}
         >
-          <Ionicons name="person" size={22} color={CORES.branco} />
+          <FiUser size={20} color={CORES.branco} />
         </TouchableOpacity>
       </View>
 
@@ -60,13 +60,13 @@ export default function LocaisColetaScreen({ navigation }) {
         {locaisColeta.map((local) => (
           <TouchableOpacity key={local.id} style={styles.localCard}>
             <View style={styles.localIconContainer}>
-              <Ionicons name="location-outline" size={24} color={CORES.primaria} />
+              <FiMapPin size={20} color={CORES.primaria} />
             </View>
             <View style={styles.localInfo}>
               <Text style={styles.localNome}>{local.nome}</Text>
               <Text style={styles.localEndereco}>{local.endereco}</Text>
             </View>
-            <Ionicons name="chevron-forward" size={20} color={CORES.primaria} />
+            <FiChevronRight size={18} color={CORES.primaria} />
           </TouchableOpacity>
         ))}
       </ScrollView>

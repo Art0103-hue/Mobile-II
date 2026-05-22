@@ -8,8 +8,9 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FiUser, FiSave } from 'react-icons/fi';
 
 const CORES = {
   primaria: '#004D40',
@@ -22,11 +23,10 @@ export default function PerfilScreen() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [idade, setIdade] = useState('');
-  const [tipoUso, setTipoUso] = useState(''); // 'Empresa' ou 'Casa'
+  const [tipoUso, setTipoUso] = useState('');
 
   const handleSalvar = () => {
-    // Salvar dados do perfil
-    alert('Perfil salvo com sucesso!');
+    Alert.alert('Sucesso', 'Perfil salvo com sucesso!');
   };
 
   return (
@@ -42,7 +42,7 @@ export default function PerfilScreen() {
         {/* Ícone de perfil */}
         <View style={styles.perfilIconContainer}>
           <View style={styles.perfilCircle}>
-            <Ionicons name="person" size={64} color={CORES.amarelo} />
+            <FiUser size={56} color={CORES.amarelo} />
           </View>
         </View>
 
@@ -116,7 +116,10 @@ export default function PerfilScreen() {
           </View>
 
           <TouchableOpacity style={styles.salvarButton} onPress={handleSalvar}>
-            <Text style={styles.salvarButtonText}>Salvar</Text>
+            <View style={styles.salvarButtonContent}>
+              <FiSave size={20} color={CORES.amarelo} />
+              <Text style={styles.salvarButtonText}>Salvar</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -205,6 +208,11 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     alignItems: 'center',
     marginTop: 28,
+  },
+  salvarButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
   salvarButtonText: {
     fontSize: 18,

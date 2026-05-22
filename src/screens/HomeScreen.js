@@ -6,8 +6,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { FiClock, FiHome, FiTrash2 } from 'react-icons/fi';
+import { FiUser, FiMapPin, FiClock, FiHome, FiTrash2 } from 'react-icons/fi';
 
 const CORES = {
   primaria: '#004D40',
@@ -38,7 +37,7 @@ export default function HomeScreen({ navigation }) {
           style={styles.userIcon}
           onPress={() => navigation.navigate('Perfil')}
         >
-          <Ionicons name="person" size={22} color={CORES.branco} />
+          <FiUser size={20} color={CORES.branco} />
         </TouchableOpacity>
       </View>
 
@@ -53,7 +52,7 @@ export default function HomeScreen({ navigation }) {
             Ponto de coleta mais Próximo
           </Text>
           <View style={styles.coletaInfo}>
-            <Ionicons name="location" size={18} color={CORES.primaria} />
+            <FiMapPin size={16} color={CORES.primaria} />
             <Text style={styles.coletaEndereco}>
               Empório DB, Av. Mário Ypiranga Monteiro
             </Text>
@@ -136,7 +135,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     marginBottom: 20,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: CORES.primaria,
   },
   coletaProximaTitle: {
