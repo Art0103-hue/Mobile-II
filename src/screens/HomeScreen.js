@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { FiUser, FiMapPin, FiClock, FiHome, FiTrash2 } from 'react-icons/fi';
+import { FiUser, FiMapPin } from 'react-icons/fi';
 
 const CORES = {
   primaria: '#004D40',
@@ -17,12 +17,12 @@ const CORES = {
 };
 
 const diasSemana = [
-  { nome: 'Segunda', tipo: 'Orgânico' },
-  { nome: 'Terça', tipo: 'Reciclável' },
-  { nome: 'Quarta', tipo: 'Orgânico' },
-  { nome: 'Quinta', tipo: 'Reciclável' },
-  { nome: 'Sexta', tipo: 'Orgânico' },
-  { nome: 'Sábado', tipo: 'Reciclável' },
+  { nome: 'Segunda', tipo: 'Tipo de coleta do dia' },
+  { nome: 'Terça', tipo: 'Tipo de coleta do dia' },
+  { nome: 'Quarta', tipo: 'Tipo de coleta do dia' },
+  { nome: 'Quinta', tipo: 'Tipo de coleta do dia' },
+  { nome: 'Sexta', tipo: 'Tipo de coleta do dia' },
+  { nome: 'Sábado', tipo: 'Tipo de coleta do dia' },
 ];
 
 export default function HomeScreen({ navigation }) {
@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Olá Usuário</Text>
+        <Text style={styles.headerTitle}>Olá Usuario</Text>
         <TouchableOpacity
           style={styles.userIcon}
           onPress={() => navigation.navigate('Perfil')}
@@ -49,7 +49,7 @@ export default function HomeScreen({ navigation }) {
         {/* Ponto de coleta mais próximo */}
         <View style={styles.coletaProxima}>
           <Text style={styles.coletaProximaTitle}>
-            Ponto de coleta mais Próximo
+            Posto de coleta mais Próximo
           </Text>
           <View style={styles.coletaInfo}>
             <FiMapPin size={16} color={CORES.primaria} />
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: CORES.amareloClaro,
   },
   header: {
-    backgroundColor: CORES.primaria,
+    backgroundColor: CORES.amarelo,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -112,13 +112,13 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: CORES.branco,
+    color: CORES.primaria,
   },
   userIcon: {
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: CORES.amarelo,
+    backgroundColor: CORES.primaria,
     justifyContent: 'center',
     alignItems: 'center',
   },

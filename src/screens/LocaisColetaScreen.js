@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { FiUser, FiMapPin, FiChevronRight } from 'react-icons/fi';
+import { FiUser, FiMapPin } from 'react-icons/fi';
 
 const CORES = {
   primaria: '#004D40',
@@ -29,7 +29,7 @@ const locaisColeta = [
   {
     id: 3,
     nome: 'Pátio Gourmet',
-    endereco: 'Adrianópolis e Avenida',
+    endereco: 'Adrianópolis e Aieço',
   },
   {
     id: 4,
@@ -66,7 +66,6 @@ export default function LocaisColetaScreen({ navigation }) {
               <Text style={styles.localNome}>{local.nome}</Text>
               <Text style={styles.localEndereco}>{local.endereco}</Text>
             </View>
-            <FiChevronRight size={18} color={CORES.primaria} />
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: CORES.amareloClaro,
   },
   header: {
-    backgroundColor: CORES.primaria,
+    backgroundColor: CORES.amarelo,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -91,13 +90,13 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: CORES.branco,
+    color: CORES.primaria,
   },
   userIcon: {
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: CORES.amarelo,
+    backgroundColor: CORES.primaria,
     justifyContent: 'center',
     alignItems: 'center',
   },

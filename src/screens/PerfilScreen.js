@@ -10,7 +10,7 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import { FiUser, FiSave } from 'react-icons/fi';
+import { FiUser } from 'react-icons/fi';
 
 const CORES = {
   primaria: '#004D40',
@@ -116,10 +116,7 @@ export default function PerfilScreen() {
           </View>
 
           <TouchableOpacity style={styles.salvarButton} onPress={handleSalvar}>
-            <View style={styles.salvarButtonContent}>
-              <FiSave size={20} color={CORES.amarelo} />
-              <Text style={styles.salvarButtonText}>Salvar</Text>
-            </View>
+            <Text style={styles.salvarButtonText}>Salvar</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -208,11 +205,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     alignItems: 'center',
     marginTop: 28,
-  },
-  salvarButtonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
   },
   salvarButtonText: {
     fontSize: 18,
