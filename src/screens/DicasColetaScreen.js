@@ -43,7 +43,7 @@ export default function DicasColetaScreen({ navigation }) {
           style={styles.userIcon}
           onPress={() => navigation.navigate('Perfil')}
         >
-          <FiUser size={20} color={CORES.branco} />
+          <FiUser size={20} color={CORES.primaria} />
         </TouchableOpacity>
       </View>
 
@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 18,
     marginBottom: 14,
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
   dicaTexto: {
     fontSize: 14,

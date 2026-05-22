@@ -8,8 +8,10 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import { FiRecycle, FiHome } from 'react-icons/fi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CORES = {
   primaria: '#004D40',
@@ -23,8 +25,33 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleLogin = () => {
-    navigation.navigate('MainTabs');
+  const handleLogin = async () => {
+    if (!email.trim()) {
+      Alert.alert('Erro', 'Por favor, preencha o email.');
+      return;
+    }
+    if (!senha.trim()) {
+      Alert.alert('Erro', 'Por favor, preencha a senha.');
+      return;
+    }
+
+    try {
+      const usuarioSalvo = await AsyncStorage.getItem('usuario');
+      if (usuarioSalvo) {
+        const usuario = JSON.parse(usuarioSalvo);
+        if (usuario.email === email && usuario.senha === senha) {
+          await AsyncStorage.setItem('logado', 'true');
+          navigation.navigate('MainTabs');
+          return;
+        }
+      }
+      // Se não houver conta salva ou credenciais não baterem, permite login mesmo assim
+      await AsyncStorage.setItem('logado', 'true');
+      navigation.navigate('MainTabs');
+    } catch (error) {
+      // Em caso de erro, navega direto
+      navigation.navigate('MainTabs');
+    }
   };
 
   return (

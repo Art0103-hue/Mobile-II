@@ -48,7 +48,7 @@ export default function LocaisColetaScreen({ navigation }) {
           style={styles.userIcon}
           onPress={() => navigation.navigate('Perfil')}
         >
-          <FiUser size={20} color={CORES.branco} />
+          <FiUser size={20} color={CORES.primaria} />
         </TouchableOpacity>
       </View>
 
@@ -76,10 +76,10 @@ export default function LocaisColetaScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: CORES.amareloClaro,
+    backgroundColor: CORES.amarelo,
   },
   header: {
-    backgroundColor: CORES.amarelo,
+    backgroundColor: CORES.primaria,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -90,13 +90,13 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: CORES.primaria,
+    color: CORES.branco,
   },
   userIcon: {
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: CORES.primaria,
+    backgroundColor: CORES.amarelo,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -109,14 +109,17 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   localCard: {
-    backgroundColor: CORES.amarelo,
+    backgroundColor: CORES.branco,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1.5,
-    borderColor: CORES.primaria,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   localIconContainer: {
     width: 40,

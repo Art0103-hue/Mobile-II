@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { FiUser, FiMapPin } from 'react-icons/fi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CORES = {
   primaria: '#004D40',
@@ -27,17 +28,42 @@ const diasSemana = [
 
 export default function HomeScreen({ navigation }) {
   const [diaSelecionado, setDiaSelecionado] = useState('Quinta');
+  const [nomeUsuario, setNomeUsuario] = useState('Usuário');
+
+  useEffect(() => {
+    carregarUsuario();
+  }, []);
+
+  // Atualiza o nome quando a tela ganha foco
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      carregarUsuario();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const carregarUsuario = async () => {
+    try {
+      const usuarioSalvo = await AsyncStorage.getItem('usuario');
+      if (usuarioSalvo) {
+        const usuario = JSON.parse(usuarioSalvo);
+        setNomeUsuario(usuario.nome || 'Usuário');
+      }
+    } catch (error) {
+      // Mantém o nome padrão
+    }
+  };
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Olá Usuario</Text>
+        <Text style={styles.headerTitle}>Olá {nomeUsuario}</Text>
         <TouchableOpacity
           style={styles.userIcon}
           onPress={() => navigation.navigate('Perfil')}
         >
-          <FiUser size={20} color={CORES.branco} />
+          <FiUser size={20} color={CORES.primaria} />
         </TouchableOpacity>
       </View>
 
@@ -101,7 +127,7 @@ const styles = StyleSheet.create({
     backgroundColor: CORES.amareloClaro,
   },
   header: {
-    backgroundColor: CORES.amarelo,
+    backgroundColor: CORES.primaria,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -112,13 +138,13 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: CORES.primaria,
+    color: CORES.branco,
   },
   userIcon: {
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: CORES.primaria,
+    backgroundColor: CORES.amarelo,
     justifyContent: 'center',
     alignItems: 'center',
   },

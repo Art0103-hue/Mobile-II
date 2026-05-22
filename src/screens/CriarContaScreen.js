@@ -8,8 +8,10 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import { FiRecycle, FiHome } from 'react-icons/fi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CORES = {
   primaria: '#004D40',
@@ -25,8 +27,40 @@ export default function CriarContaScreen({ navigation }) {
   const [senha, setSenha] = useState('');
   const [idade, setIdade] = useState('');
 
-  const handleCriarConta = () => {
-    navigation.navigate('MainTabs');
+  const handleCriarConta = async () => {
+    if (!nome.trim()) {
+      Alert.alert('Erro', 'Por favor, preencha o nome.');
+      return;
+    }
+    if (!email.trim()) {
+      Alert.alert('Erro', 'Por favor, preencha o email.');
+      return;
+    }
+    if (!senha.trim()) {
+      Alert.alert('Erro', 'Por favor, preencha a senha.');
+      return;
+    }
+    if (!idade.trim()) {
+      Alert.alert('Erro', 'Por favor, preencha a idade.');
+      return;
+    }
+
+    try {
+      const usuario = {
+        nome: nome.trim(),
+        email: email.trim(),
+        senha: senha,
+        idade: idade.trim(),
+        tipoUso: '',
+      };
+      await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
+      await AsyncStorage.setItem('logado', 'true');
+      Alert.alert('Sucesso', 'Conta criada com sucesso!', [
+        { text: 'OK', onPress: () => navigation.navigate('MainTabs') },
+      ]);
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível criar a conta.');
+    }
   };
 
   return (

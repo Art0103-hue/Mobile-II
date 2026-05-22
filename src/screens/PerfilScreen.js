@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,8 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import { FiUser } from 'react-icons/fi';
+import { FiUser, FiLogOut } from 'react-icons/fi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CORES = {
   primaria: '#004D40',
@@ -19,14 +20,89 @@ const CORES = {
   branco: '#FFFFFF',
 };
 
-export default function PerfilScreen() {
+export default function PerfilScreen({ navigation }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [idade, setIdade] = useState('');
   const [tipoUso, setTipoUso] = useState('');
 
-  const handleSalvar = () => {
-    Alert.alert('Sucesso', 'Perfil salvo com sucesso!');
+  useEffect(() => {
+    carregarUsuario();
+  }, []);
+
+  // Recarrega quando a tela ganha foco
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      carregarUsuario();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const carregarUsuario = async () => {
+    try {
+      const usuarioSalvo = await AsyncStorage.getItem('usuario');
+      if (usuarioSalvo) {
+        const usuario = JSON.parse(usuarioSalvo);
+        setNome(usuario.nome || '');
+        setEmail(usuario.email || '');
+        setIdade(usuario.idade || '');
+        setTipoUso(usuario.tipoUso || '');
+      }
+    } catch (error) {
+      // Mantém os valores padrão
+    }
+  };
+
+  const handleSalvar = async () => {
+    if (!nome.trim()) {
+      Alert.alert('Erro', 'Por favor, preencha o nome.');
+      return;
+    }
+    if (!email.trim()) {
+      Alert.alert('Erro', 'Por favor, preencha o email.');
+      return;
+    }
+
+    try {
+      const usuario = {
+        nome: nome.trim(),
+        email: email.trim(),
+        idade: idade.trim(),
+        tipoUso: tipoUso,
+      };
+      await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
+      Alert.alert('Sucesso', 'Perfil salvo com sucesso!');
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível salvar o perfil.');
+    }
+  };
+
+  const handleLogout = async () => {
+    Alert.alert(
+      'Sair',
+      'Deseja realmente sair da sua conta?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Sair',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await AsyncStorage.removeItem('logado');
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+              });
+            } catch (error) {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+              });
+            }
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -117,6 +193,11 @@ export default function PerfilScreen() {
 
           <TouchableOpacity style={styles.salvarButton} onPress={handleSalvar}>
             <Text style={styles.salvarButtonText}>Salvar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+            <FiLogOut size={18} color={CORES.primaria} />
+            <Text style={styles.logoutText}>Sair da conta</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -210,5 +291,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: CORES.amarelo,
+  },
+  logoutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 16,
+    paddingVertical: 10,
+    gap: 6,
+  },
+  logoutText: {
+    fontSize: 14,
+    color: CORES.primaria,
+    fontWeight: '600',
   },
 });
